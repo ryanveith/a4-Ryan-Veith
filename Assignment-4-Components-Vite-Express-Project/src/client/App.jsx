@@ -3,6 +3,39 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { Fragment } from "react";
 
+const login = async function() {
+    console.log("running login")
+    const mode = document.querySelector( '#option' ),
+        username = document.querySelector( '#username' ),
+        password = document.querySelector( '#password' ),
+        json = {mode: mode.value, username: username.value, password: password.value}
+
+    const response = await fetch( '/login', {
+        method:'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify( json ) 
+    })
+
+    const text = await response.text()
+
+    console.log("response", text)
+
+    // If response was 200 OK redirect, if not show given error message
+    const errorMessage = document.querySelector( '#error' )
+    console.log("status", response.status)
+    if (response.status == 200) {
+        // I was adding and removing hidden but I think it makes more sense to add remove alert and the text for the error
+        errorMessage.setAttribute("role", "")
+        errorMessage.innerText = " "
+        window.location.href = '/home.html'
+    }
+    else {  
+        errorMessage.setAttribute("role", "alert")
+        errorMessage.innerText = text
+    }
+}
+
+//page to return
 function App() {
   const [count, setCount] = useState(0);
 
@@ -22,11 +55,11 @@ function App() {
               <option>Create Account</option>
             </select>
             <label for="username"> Enter your Username: </label>
-            <input class="pure-u-1 pure-u-md-1-3" type='text' id='username' value=''placeholder='enter your username'/>
+            <input class="pure-u-1 pure-u-md-1-3" type='text' id='username' defaultValue='' placeholder='enter your username'/>
             <label for="username"> Enter your Password: </label>
-            <input class="pure-u-1 pure-u-md-1-3" type='password' id='password' value='' placeholder='enter your password here'/>
+            <input class="pure-u-1 pure-u-md-1-3" type='password' id='password' defaultValue='' placeholder='enter your password here'/>
             <div class="pure-u-1" id='error'></div>
-            <button class="pure-button pure-button-primary pure-u-1" type="button" onclick="login()" >Log In</button>
+            <button class="pure-button pure-button-primary pure-u-1" type="button" onClick={login} >Log In</button>
           </section>
         </form>
       </main>
