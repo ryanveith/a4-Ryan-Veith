@@ -167,7 +167,7 @@ const getMenu = (`
         </label>
         </li>
     </ul>
-    <button class="pure-button pure-button-primary" type="button" onClick={updateForm}> Get Started </button>
+    <button className="pure-button pure-button-primary" type="button" onClick={updateForm}> Get Started </button>
 `)
 
 const getUsername = (`
@@ -175,8 +175,8 @@ const getUsername = (`
     <input type='text' id='username1' value=''placeholder='Please enter a new username'>
     <label for="username2"> Confirm your Nickname: </label>
     <input type='text' id='username2' value='' placeholder='Please retype your username'>
-    <button class="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button class="pure-button pure-button-primary type="button" onClick={updateUsername} >submit</button>
+    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
+    <button className="pure-button pure-button-primary type="button" onClick={updateUsername} >submit</button>
 `)
 
 const getPassword = (`
@@ -184,52 +184,61 @@ const getPassword = (`
     <input type='password' id='password1' value=''placeholder='Please enter a new password'>
     <label for="password2"> Confirm your Password: </label>
     <input type='password' id='password2' value='' placeholder='Please retype your password'>
-    <button class="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button class="pure-button pure-button-primary type="button" onClick={updatePassword} >submit</button>
+    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
+    <button className="pure-button pure-button-primary type="button" onClick={updatePassword} >submit</button>
 `)
 
 const getProfilePicture = (`
     <h2>Select a New Profile Picture</h2>
-    <section class="pure-g">
-        <label for="pfp1" class="pure-u-1-3">
+    <section className="pure-g">
+        <label for="pfp1" className="pure-u-1-3">
             <input id = "pfp1" name = "pfp" value="images/Black Elephant.png" width="50" height="50" type=radio>
-            <img src="images/Black Elephant.png" alt="Picture of a Black Elephant"> Black Elephant </img>
+            <img src="images/Black Elephant.png" alt="Picture of a Black Elephant"></img>
+            <p> Black Elephant </p>
         </label>
-        <label for="pfp2" class="pure-u-1-3">
+        <label for="pfp2" className="pure-u-1-3">
             <input id = "pfp2" name = "pfp" value="images/Brown Dog.png" width="50" height="50" type=radio >
-            <img src="images/Brown Dog.png" alt="Picture of a Brown Dog"> Brown Dog </img>
+            <img src="images/Brown Dog.png" alt="Picture of a Brown Dog"></img>
+            <p> Brown Dog </p>
         </label>
-        <label for="pfp3" class="pure-u-1-3">
+        <label for="pfp3" className="pure-u-1-3">
             <input id = "pfp3" name = "pfp" value="images/Green Frog.png" width="50" height="50" type=radio >
-            <img src="images/Green Frog.png" alt="Picture of a Green Frog"> Green Frog </img>
+            <img src="images/Green Frog.png" alt="Picture of a Green Frog"></img>
+            <p> Green Frog </p>
         </label>
-        <label for="pfp4" class="pure-u-1-3">
+        <label for="pfp4" className="pure-u-1-3">
             <input id = "pfp4" name = "pfp" value="images/Grey Panda.png" width="50" height="50" type=radio>
-            <img src="images/Grey Panda.png" alt="Picture of a Grey Panda"> Grey Panda </img>
+            <img src="images/Grey Panda.png" alt="Picture of a Grey Panda"></img>
+            <p> Grey Panda </p>
         </label>
-        <label for="pfp5" class="pure-u-1-3">
+        <label for="pfp5" className="pure-u-1-3">
             <input id = "pfp5" name = "pfp" value="images/Orange Monkey.png" width="50" height="50" type=radio >
-            <img src="images/Orange Monkey.png" alt="Picture of a Orange Monkey"> Orange Monkey </img>
+            <img src="images/Orange Monkey.png" alt="Picture of a Orange Monkey"></img>
+            <p> Orange Monkey </p>
         </label>
-        <label for="pfp6" class="pure-u-1-3">
+        <label for="pfp6" className="pure-u-1-3">
             <input id = "pfp6" name = "pfp" value="images/Pink Pig.png" width="50" height="50" type=radio >
-            <img src="images/Pink Pig.png" alt="Picture of a Pink Pig"> Pink Pig </img>
+            <img src="images/Pink Pig.png" alt="Picture of a Pink Pig"></img>
+            <p> Pink Pig </p>
         </label>
-        <label for="pfp7" class="pure-u-1-3">
+        <label for="pfp7" className="pure-u-1-3">
             <input id = "pfp7" name = "pfp" value="images/Purple Bunny.png" width="50" height="50" type=radio>
-            <img src="images/Purple Bunny.png" alt="Picture of a Purple Bunny"> Purple Bunny </img>
+            <img src="images/Purple Bunny.png" alt="Picture of a Purple Bunny"></img>
+            <p> Purple Bunny </p>
         </label>
-        <label for="pfp8" class="pure-u-1-3">
+        <label for="pfp8" className="pure-u-1-3">
             <input id = "pfp8" name = "pfp" value="images/Red Fox.png" width="50" height="50" type=radio >
-            <img src="images/Red Fox.png" alt="Picture of a Red Fox"> Red Fox </img>
+            <img src="images/Red Fox.png" alt="Picture of a Red Fox"></img>
+            <p> Red Fox </p>
         </label>
-        <label for="pfp9" class="pure-u-1-3">
+        <label for="pfp9" className="pure-u-1-3">
             <input id = "pfp9" name = "pfp" value="images/White Cow.png" width="50" height="50" type=radio >
-            <img src="images/White Cow.png" alt="Picture of a White Cow"> White Cow </img>
+            <img src="images/White Cow.png" alt="Picture of a White Cow"></img>
+            <p> White Cow </p>
         </label>
     </section>
-    <button class="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button class="pure-button pure-button-primary type="button" onClick={updateProfilePicture} >submit</button>
+    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
+    <button className="pure-button pure-button-primary type="button" onClick={updateProfilePicture} >submit</button>
 `)
 
 const getGames = (`
@@ -243,8 +252,8 @@ const getGames = (`
     <input type='text' id='game' value=''placeholder='enter what game this score is for'>
     <label for="highscore"> Enter your Highscore: </label>
     <input type='text' id='highscore' value='' placeholder='enter your score here'>
-    <button class="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button class="pure-button pure-button-primary type="button" onClick={updateGameScore} >submit</button>
+    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
+    <button className="pure-button pure-button-primary type="button" onClick={updateGameScore} >submit</button>
 `)
 
 //window.onload = async function ()
@@ -262,26 +271,26 @@ function Home() {
   return (
     <Fragment>
       <title>Scoredisplay - CS4241 Assignment 2</title>
-      <meta charset='utf-8' />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous"/>
+      <meta charSet='utf-8' />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossOrigin="anonymous"/>
       <meta name="description" content="The login page for a simple database that lets you store highscores for games you play."/>
 
       <header>
         <button type="button" onClick={logout}> Log Out</button>
-        <img id="profile picture" src="images/Black Elephant.png" alt="your profile picture" width="50" height="50"> </img>
+        <img id="profile picture" src="images/Black Elephant.png" alt="your profile picture" width="50" height="50"></img>
       </header>
       <main>
         <h1> Scoredisplay Home Page </h1>
         <p id='welcome'>
           Welcome back Player 1! What would you like to do?
         </p>
-        <div class="pure-g" id="layout">
-          <form class="pure-u-1-2 pure-form pure-form-stacked" id="home">
+        <div className="pure-g" id="layout">
+          <form className="pure-u-1-2 pure-form pure-form-stacked" id="home">
             
           </form>
-          <section class="pure-u-1-2">
+          <section className="pure-u-1-2">
             <h2 >Highscores</h2>
-            <ul class="pure-menu" id = 'scoretable'>
+            <ul className="pure-menu" id = 'scoretable'>
               <li>
                 Submit a Score to see how how it compares to other highscores
               </li>
