@@ -3,6 +3,8 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { Fragment } from "react";
 
+import {useEffect} from "react";
+
 let username = "Player 1"
 
 // Logout and return to default landing page for not logged in users
@@ -245,9 +247,12 @@ const getGames = (`
     <button class="pure-button pure-button-primary type="button" onClick={updateGameScore} >submit</button>
 `)
 
-window.onload = async function ()  {
+//window.onload = async function ()
+function onload() { 
+  useEffect(() => {
     updateForm()
     updateShownData()
+  }, []) 
 }
 
 // page to return
@@ -288,4 +293,4 @@ function Home() {
   );
 }
 
-export default App;
+export default Home;

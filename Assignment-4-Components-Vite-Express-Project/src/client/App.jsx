@@ -42,24 +42,24 @@ function App() {
   return (
     <Fragment>
       <title>Scoredisplay Login - CS4241 Assignment 2</title>
-      <meta charset='utf-8' />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous" />
+      <meta charSet='utf-8' />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossOrigin="anonymous" />
       <meta name="description" content="The login page for a simple database that lets you store highscores for games you play." />
       <main>
-        <form class="pure-form" id="login-form">
+        <form className="pure-form" id="login-form">
           <h1> Scoredisplay Login Page </h1>
-          <section class="pure-g" id="layout">
-            <label for="username"> Select Login/Sign Up: </label>
-            <select class="pure-u-1 pure-u-md-1-3" id='option'>
+          <section className="pure-g" id="layout">
+            <label htmlFor="username"> Select Login/Sign Up: </label>
+            <select className="pure-u-1 pure-u-md-1-3" id='option'>
               <option>Login</option>
               <option>Create Account</option>
             </select>
-            <label for="username"> Enter your Username: </label>
-            <input class="pure-u-1 pure-u-md-1-3" type='text' id='username' defaultValue='' placeholder='enter your username'/>
-            <label for="username"> Enter your Password: </label>
-            <input class="pure-u-1 pure-u-md-1-3" type='password' id='password' defaultValue='' placeholder='enter your password here'/>
-            <div class="pure-u-1" id='error'></div>
-            <button class="pure-button pure-button-primary pure-u-1" type="button" onClick={login} >Log In</button>
+            <label htmlFor="username"> Enter your Username: </label>
+            <input className="pure-u-1 pure-u-md-1-3" type='text' id='username' defaultValue='' placeholder='enter your username'/>
+            <label htmlFor="username"> Enter your Password: </label>
+            <input className="pure-u-1 pure-u-md-1-3" type='password' id='password' defaultValue='' placeholder='enter your password here'/>
+            <div className="pure-u-1" id='error'></div>
+            <button className="pure-button pure-button-primary pure-u-1" type="button" onClick={login} >Log In</button>
           </section>
         </form>
       </main>
