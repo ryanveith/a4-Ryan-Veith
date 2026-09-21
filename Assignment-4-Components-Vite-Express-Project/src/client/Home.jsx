@@ -89,8 +89,9 @@ const updateShownData = async function() {
         method:'GET'
     })
     const text = await response.text()
-    // TReact actually manges to parse this with the middleware
+    // TReact actually manges to parse this with the middleware, maybe?
     const data = text
+    console.log("got text", text)
     let dataToDisplay = ""
     // Data is sent back as an array with all documents 
     for (let i = 0; i < data.length; i++) {
@@ -264,7 +265,6 @@ const getGames = (`
 function Home() {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    console.log("loading");
     updateForm();
     updateShownData();
   }, []) 

@@ -39,7 +39,7 @@ app.use( cookie({
 
 // Have an Icon!
 const pathName = import.meta.dirname
-console.log(path)
+//console.log(path)
 
 //app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')))
 
@@ -67,7 +67,7 @@ async function run() {
     await client.connect()
     // route to get all docs for a user
     app.get("/docs", async (req, res) => {
-        
+        console.log("/docs request")
         // check cookies before returning a clients info
         // Req.session returns an object, but the only cookie we care about is the login one
         // So turn it into an array with Object.entries filter for just that one
@@ -79,6 +79,7 @@ async function run() {
             if (collection !== null) {
                 const docs = await collection.find({}).toArray()
                 res.json( docs )
+                console.log("documents", docs)
             }
             else {
                 // This situation would be an error in the database call

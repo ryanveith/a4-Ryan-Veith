@@ -1,69 +1,64 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  font-size: 150%;
+  background-color: darkcyan;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+
+/* The pure-button is being overridden by Blueviolet which is #8A2BE2 to make the text higher contrast*/
+/* This is fine for google lighthouse and passes AA, but is not AAA compliant for small text, so I to be safe I made font size-larger everywhere*/
+.pure-button.pure-button-primary {
+  background-color: blueviolet;
 }
 
-body {
-  margin: 0;
+/* Make it very obvious when an elemnt is slected */
+:focus {
+  background-color:beige;
+  /* The select element does not really work well with chaning background by the options do */
+  option {
+    background-color:beige;
+  }
+
+}
+/* Radio buttons are somehow worse then select, but since they are all children of thier label this works */
+label:focus-within {
+  background-color:beige;
+}
+
+/* I really do like the blue/green colors and since I can use them I am */
+.pure-u-1-2 {
+  background-color: aquamarine;
+}
+
+/* I don't want any bulletpoints for ul even if I do like the list style to show stuff*/
+ul {
+  list-style-type: none
+}
+
+/* This is supposed to take up start of page, since this is were all user input happens*/
+/* Default sizing and look is fine but it needs to have a min-hight since data only appears after page load*/
+/* Having this prevents it from needing to recalculate page looks when hight chages after data appears*/
+/* I also had to add the max-width since it looked good in testng, and then I got rid of inspect and the ratio was off, oops */
+/* I added some padding to fix this and it looks better now */
+form {  
+  min-height: 45vh;
+}
+#login-form {
+  max-width: 70vw;
+  padding-top: 10vh;
+  padding-left: 15vw;
+}
+
+/* after adding a profile picture it was too close to logout so  this makes the header feel more correct */
+header {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+ 
+/* I really like dynamically scaling them but lighthouse complains about how they are too low res, so here is the solution */
+/* I dont like or see the point in scaling up the image up since I don't feel like making the website load more data just to show the same 50x50 image that has been scaled up and is now blurry is useful*/
+/* well, at least lighthouse is happy */
+img {
+  max-width:50px;
+  max-height:50px;
+  object-fit:cover;
 }
