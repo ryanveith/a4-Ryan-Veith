@@ -63,6 +63,7 @@ const client = new MongoClient(uri, {
 })
 
 async function run() {
+    console.log("running")
     await client.connect()
     // route to get all docs for a user
     app.get("/docs", async (req, res) => {
@@ -74,7 +75,7 @@ async function run() {
         const authenticatedUser = Object.entries(req.session).filter(([cookie, value]) => cookie == `login`)[0][1]
         if (authenticatedUser != null) {
             //return collection of just that clients info
-            collection = await client.db("datatest").collection(authenticatedUser)
+            const collection = await client.db("datatest").collection(authenticatedUser)
             if (collection !== null) {
                 const docs = await collection.find({}).toArray()
                 res.json( docs )
@@ -96,7 +97,7 @@ async function run() {
         const authenticatedUser = Object.entries(req.session).filter(([cookie, value]) => cookie == `login`)[0][1]
         if (authenticatedUser != null) {
             // Mess with just your data
-            collection = await client.db("datatest").collection(authenticatedUser)
+            const collection = await client.db("datatest").collection(authenticatedUser)
             // Do whatever option was given in submit
             if (req.body.option == "Change Username") {
                 // Without mongodb verion 8.1 can't really support changing collection name to do this
@@ -173,7 +174,7 @@ async function run() {
         //const authenticatedUser = Object.entries(req.session).filter(([cookie, value]) => cookie == `login`)[0][1]
         if (req.body.username != "") {
             //return collection
-            collection = await client.db("datatest").collection(req.body.username)
+            const collection = await client.db("datatest").collection(req.body.username)
             const passwordToCheck = await collection.findOne({"password": { $exists: true }} )
             if (req.body.mode === 'Login') {
                 if (passwordToCheck == null) {

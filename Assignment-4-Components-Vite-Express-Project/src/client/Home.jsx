@@ -89,8 +89,8 @@ const updateShownData = async function() {
         method:'GET'
     })
     const text = await response.text()
-    // This specifically still needs to be parsed
-    const data = JSON.parse(text)
+    // TReact actually manges to parse this with the middleware
+    const data = text
     let dataToDisplay = ""
     // Data is sent back as an array with all documents 
     for (let i = 0; i < data.length; i++) {
@@ -257,16 +257,17 @@ const getGames = (`
 `)
 
 //window.onload = async function ()
-function onload() { 
-  useEffect(() => {
-    updateForm()
-    updateShownData()
-  }, []) 
-}
+// moved hook into the actual function where it is supposed to be
+// I don't know what I was thinking before
 
 // page to return
 function Home() {
   const [count, setCount] = useState(0);
+  useEffect(() => {
+    console.log("loading");
+    updateForm();
+    updateShownData();
+  }, []) 
 
   return (
     <Fragment>
