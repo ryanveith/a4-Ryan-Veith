@@ -66,7 +66,7 @@ async function run() {
     console.log("running")
     await client.connect()
     // route to get all docs for a user
-    app.get("/docs", async (req, res) => {
+    app.post("/docs", async (req, res) => {
         console.log("/docs request")
         // check cookies before returning a clients info
         // Req.session returns an object, but the only cookie we care about is the login one
@@ -78,8 +78,7 @@ async function run() {
             const collection = await client.db("datatest").collection(authenticatedUser)
             if (collection !== null) {
                 const docs = await collection.find({}).toArray()
-                res.json( docs )
-                console.log("documents", docs)
+                res.json( docs )  
             }
             else {
                 // This situation would be an error in the database call

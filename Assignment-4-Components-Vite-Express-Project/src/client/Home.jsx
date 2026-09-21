@@ -2,305 +2,196 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { Fragment } from "react";
-
 import {useEffect} from "react";
 
-let username = "Player 1"
+import GamesComponent from "./GamesComponent"
+import MenuComponent from "./MenuComponent"
+import PasswordComponent from "./PasswordComponent"
+import ProfilePictureComponent from "./ProfilePictureComponent"
+import UsernameComponent from "./UsernameComponent"
 
-// Logout and return to default landing page for not logged in users
-const logout = async function( event ) {
-    const response = await fetch( '/logout', {
-        method:'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( {} ) 
-    })
-    window.location.href = '/'
-}
+function Home() {
+    const [component, setComponent] = useState(<Fragment></Fragment>);
+    useEffect(() => {
+        updateForm(true);
+        updateShownData();
+    }, []) 
 
-const updateUsername = async function() {
-    const newUsername1 = document.querySelector( '#username1' ),
-        newUsername2 = document.querySelector( '#username2' )
-    if (newUsername1.value != newUsername2.value) {
-        newUsername2.setCustomValidity("Your usernames must match!")
-    }
-    else {
-        newUsername2.setCustomValidity("")
-        //POST req to change username in server
-        const response = await fetch( '/submit', {
+    let username = "Player 1"
+
+    // Logout and return to default landing page for not logged in users
+    const logout = async function( event ) {
+        const response = await fetch( '/logout', {
             method:'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify( {option:'Change Username', newUsername:newUsername1.value} ) 
+            body: JSON.stringify( {} ) 
         })
+        window.location.href = '/'
     }
-}
 
-const updatePassword = async function() {
-    const password1 = document.querySelector( '#password1' ),
-        password2 = document.querySelector( '#password2' )
-    if (password1.value != password2.value) {
-        password2.setCustomValidity("Your passwords must match!")
-    }
-    else {
-        password2.setCustomValidity("")
-        //POST req to change password in server
-        const response = await fetch( '/submit', {
-            method:'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify( {option:'Change Password', newPassword:password1.value} ) 
-        })
-    }
-}
-
-const updateProfilePicture = async function() {
-    //update picture from selected
-    const newpfp = document.querySelector('input[name="pfp"]:checked')
-    //POST req to change this  in server
-    const response = await fetch( '/submit', {
-        method:'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( {option:'Change Profile Picture', pfp:newpfp.value} ) 
-    })
-    console.log("made it here")
-}
-
-const updateGameScore = async function() {
-    const mode = document.querySelector( '#option' ),
-        game = document.querySelector( '#game' ),
-        score = document.querySelector( '#highscore' ),
-        today = new Date().toISOString().slice(0, 10), 
-        json = { option: mode.value, game: game.value, highscore: score.value, date: today}
-
-    const response = await fetch( '/submit', {
-        method:'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify( json ) 
-    })
-
-    // Do something with the response from POST
-    const data = await response.text()
-    // checking if data is not an error message would be ideal
-
-    updateShownData()    
-}
-
-const updateShownData = async function() {
-    // Run a get after running a post, to see if the page changes
-    const response = await fetch( '/docs', {
-        method:'GET'
-    })
-    const text = await response.text()
-    // TReact actually manges to parse this with the middleware, maybe?
-    const data = text
-    console.log("got text", text)
-    let dataToDisplay = ""
-    // Data is sent back as an array with all documents 
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].game != null) {
-            dataToDisplay += "<li>"+(data[i].game+": "+data[i].highscore).replaceAll(/(<|>)/g, "")+"</li>"
-        }
-        //one of the elemnts sent back should contain the username so update that 
-        else if (data[i].username != null) {
-            username = data[i].username
-            //this piece of data might also have a specific profile picture if so use it instead of default
-            if (data[i].pfp != null) {
-                const pfpImage = document.getElementById("profile picture")
-                pfpImage.src = data[i].pfp
-            }
-        }
-    }
-    // Overwrite the displayed scoretable with the updated version after it returns
-    document.getElementById('scoretable').innerHTML = dataToDisplay
-    // Also update player name
-    document.getElementById('welcome').innerText = `Welcome back ${username}! What would you like to do?`
-}
-
-const updateForm = async function() {
-    const selection = document.querySelector('input[name="whatToDo"]:checked')
-    if (selection != null) {
-        if (selection.value === "1") {
-            document.getElementById('home').innerHTML = getUsername     
-        }
-        else if (selection.value === "2") {
-            document.getElementById('home').innerHTML = getPassword     
-        }
-        else if (selection.value === "3") {
-            document.getElementById('home').innerHTML = getProfilePicture     
-        }
-        else if (selection.value === "4") {
-            document.getElementById('home').innerHTML = getGames     
+    const updateUsername = async function() {
+        const newUsername1 = document.querySelector( '#username1' ),
+            newUsername2 = document.querySelector( '#username2' )
+        if (newUsername1.value != newUsername2.value) {
+            newUsername2.setCustomValidity("Your usernames must match!")
         }
         else {
-            // Invalid selction for where to go so return to menu
-            document.getElementById('home').innerHTML = getMenu
+            newUsername2.setCustomValidity("")
+            //POST req to change username in server
+            const response = await fetch( '/submit', {
+                method:'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify( {option:'Change Username', newUsername:newUsername1.value} ) 
+            })
         }
-    } 
-    else {
-        // There was not selection for where to go so return to menu
-        document.getElementById('home').innerHTML = getMenu
     }
-    
-}
 
-const getMenu = (`
-    <ul>
-        <li>
-        <label>
-            <input id = "whatToDo1" name="whatToDo" value="1" type = "radio">
-            Change your Nickname 
-        </label>
-        </li>
-        <li>
-        <label>
-            <input id = "whatToDo2" name="whatToDo" value="2" type = "radio">
-            Change your Password
-        </label>
-        </li>
-        <li>
-        <label>
-            <input id = "whatToDo3" name="whatToDo" value="3" type = "radio">
-            Change your Profile picture
-        </label>
-        </li>
-        <li>
-        <label>
-            <input id = "whatToDo4" name="whatToDo" value="4" type = "radio" checked>
-            Add data about Games you have played
-        </label>
-        </li>
-    </ul>
-    <button className="pure-button pure-button-primary" type="button" onClick={updateForm}> Get Started </button>
-`)
+    const updatePassword = async function() {
+        const password1 = document.querySelector( '#password1' ),
+            password2 = document.querySelector( '#password2' )
+        if (password1.value != password2.value) {
+            password2.setCustomValidity("Your passwords must match!")
+        }
+        else {
+            password2.setCustomValidity("")
+            //POST req to change password in server
+            const response = await fetch( '/submit', {
+                method:'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify( {option:'Change Password', newPassword:password1.value} ) 
+            })
+        }
+    }
 
-const getUsername = (`
-    <label for="username1"> Enter a Nickname: </label>
-    <input type='text' id='username1' value=''placeholder='Please enter a new username'>
-    <label for="username2"> Confirm your Nickname: </label>
-    <input type='text' id='username2' value='' placeholder='Please retype your username'>
-    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button className="pure-button pure-button-primary type="button" onClick={updateUsername} >submit</button>
-`)
+    const updateProfilePicture = async function() {
+        //update picture from selected
+        const newpfp = document.querySelector('input[name="pfp"]:checked')
+        //POST req to change this  in server
+        const response = await fetch( '/submit', {
+            method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify( {option:'Change Profile Picture', pfp:newpfp.value} ) 
+        })
+        console.log("made it here")
+    }
 
-const getPassword = (`
-    <label for="password1"> Enter a New Password: </label>
-    <input type='password' id='password1' value=''placeholder='Please enter a new password'>
-    <label for="password2"> Confirm your Password: </label>
-    <input type='password' id='password2' value='' placeholder='Please retype your password'>
-    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button className="pure-button pure-button-primary type="button" onClick={updatePassword} >submit</button>
-`)
+    const updateGameScore = async function() {
+        const mode = document.querySelector( '#option' ),
+            game = document.querySelector( '#game' ),
+            score = document.querySelector( '#highscore' ),
+            today = new Date().toISOString().slice(0, 10), 
+            json = { option: mode.value, game: game.value, highscore: score.value, date: today}
 
-const getProfilePicture = (`
-    <h2>Select a New Profile Picture</h2>
-    <section className="pure-g">
-        <label for="pfp1" className="pure-u-1-3">
-            <input id = "pfp1" name = "pfp" value="images/Black Elephant.png" width="50" height="50" type=radio>
-            <img src="images/Black Elephant.png" alt="Picture of a Black Elephant"></img>
-            <p> Black Elephant </p>
-        </label>
-        <label for="pfp2" className="pure-u-1-3">
-            <input id = "pfp2" name = "pfp" value="images/Brown Dog.png" width="50" height="50" type=radio >
-            <img src="images/Brown Dog.png" alt="Picture of a Brown Dog"></img>
-            <p> Brown Dog </p>
-        </label>
-        <label for="pfp3" className="pure-u-1-3">
-            <input id = "pfp3" name = "pfp" value="images/Green Frog.png" width="50" height="50" type=radio >
-            <img src="images/Green Frog.png" alt="Picture of a Green Frog"></img>
-            <p> Green Frog </p>
-        </label>
-        <label for="pfp4" className="pure-u-1-3">
-            <input id = "pfp4" name = "pfp" value="images/Grey Panda.png" width="50" height="50" type=radio>
-            <img src="images/Grey Panda.png" alt="Picture of a Grey Panda"></img>
-            <p> Grey Panda </p>
-        </label>
-        <label for="pfp5" className="pure-u-1-3">
-            <input id = "pfp5" name = "pfp" value="images/Orange Monkey.png" width="50" height="50" type=radio >
-            <img src="images/Orange Monkey.png" alt="Picture of a Orange Monkey"></img>
-            <p> Orange Monkey </p>
-        </label>
-        <label for="pfp6" className="pure-u-1-3">
-            <input id = "pfp6" name = "pfp" value="images/Pink Pig.png" width="50" height="50" type=radio >
-            <img src="images/Pink Pig.png" alt="Picture of a Pink Pig"></img>
-            <p> Pink Pig </p>
-        </label>
-        <label for="pfp7" className="pure-u-1-3">
-            <input id = "pfp7" name = "pfp" value="images/Purple Bunny.png" width="50" height="50" type=radio>
-            <img src="images/Purple Bunny.png" alt="Picture of a Purple Bunny"></img>
-            <p> Purple Bunny </p>
-        </label>
-        <label for="pfp8" className="pure-u-1-3">
-            <input id = "pfp8" name = "pfp" value="images/Red Fox.png" width="50" height="50" type=radio >
-            <img src="images/Red Fox.png" alt="Picture of a Red Fox"></img>
-            <p> Red Fox </p>
-        </label>
-        <label for="pfp9" className="pure-u-1-3">
-            <input id = "pfp9" name = "pfp" value="images/White Cow.png" width="50" height="50" type=radio >
-            <img src="images/White Cow.png" alt="Picture of a White Cow"></img>
-            <p> White Cow </p>
-        </label>
-    </section>
-    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button className="pure-button pure-button-primary type="button" onClick={updateProfilePicture} >submit</button>
-`)
+        const response = await fetch( '/submit', {
+            method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify( json ) 
+        })
 
-const getGames = (`
-    <label for="option"> Select Add/Modify/Delete Score: </label>
-    <select id='option'>
-        <option>Add Score</option>
-        <option>Modify Score</option>
-        <option>Delete Score</option>
-    </select>
-    <label for="game"> Enter Name of Game: </label>
-    <input type='text' id='game' value=''placeholder='enter what game this score is for'>
-    <label for="highscore"> Enter your Highscore: </label>
-    <input type='text' id='highscore' value='' placeholder='enter your score here'>
-    <button className="pure-button pure-button-secondary type="button" onClick={updateForm} >back</button>
-    <button className="pure-button pure-button-primary type="button" onClick={updateGameScore} >submit</button>
-`)
+        // Do something with the response from POST
+        const data = await response.text()
+        // checking if data is not an error message would be ideal
 
-//window.onload = async function ()
-// moved hook into the actual function where it is supposed to be
-// I don't know what I was thinking before
+        updateShownData()    
+    }
 
-// page to return
-function Home() {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    updateForm();
-    updateShownData();
-  }, []) 
+    const updateShownData = async function() {
+        // Run a get after running a post, to see if the page changes
+        const response = await fetch( '/docs', {
+            method:'POST',
+            headers: { 'Content-Type':'application/json' },
+            body: JSON.stringify({})
+        })
+        const text = await response.text()
+        // TReact actually manges to parse this with the middleware, maybe?
+        const data = JSON.parse(text)
+        let dataToDisplay = ""
+        // Data is sent back as an array with all documents 
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].game != null) {
+                dataToDisplay += "<li>"+(data[i].game+": "+data[i].highscore).replaceAll(/(<|>)/g, "")+"</li>"
+            }
+            //one of the elemnts sent back should contain the username so update that 
+            else if (data[i].username != null) {
+                username = data[i].username
+                //this piece of data might also have a specific profile picture if so use it instead of default
+                if (data[i].pfp != null) {
+                    const pfpImage = document.getElementById("profile picture")
+                    pfpImage.src = data[i].pfp
+                }
+            }
+        }
+        // Overwrite the displayed scoretable with the updated version after it returns
+        document.getElementById('scoretable').innerHTML = dataToDisplay
+        // Also update player name
+        document.getElementById('welcome').innerText = `Welcome back ${username}! What would you like to do?`
+    }
 
-  return (
-    <Fragment>
-      <title>Scoredisplay - CS4241 Assignment 2</title>
-      <meta charSet='utf-8' />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossOrigin="anonymous"/>
-      <meta name="description" content="The login page for a simple database that lets you store highscores for games you play."/>
+    const updateForm = async function(reset) {
+        console.log("Updating form")
+        const selection = document.querySelector('input[name="whatToDo"]:checked')
+        if (reset) {
+            // React browserrouter will remember a selection even if it is not on current page, so be able to pass in reset
+            // Also can change over from using constants and setting intter html to using react components
+            //document.getElementById('home').innerHTML = ...
+            setComponent(<MenuComponent setFunction={updateForm}/>)
+        }
+        else if (selection != null) {
+            if (selection.value === "1") {
+                setComponent(<UsernameComponent setFunction={updateForm}/>)   
+            }
+            else if (selection.value === "2") {
+                setComponent(<PasswordComponent setFunction={updateForm}/>) 
+            }
+            else if (selection.value === "3") {
+                setComponent(<ProfilePictureComponent setFunction={updateForm}/>)
+            }
+            else if (selection.value === "4") {
+                setComponent(<GamesComponent setFunction={updateForm}/>)   
+            }
+            else {
+                // Invalid selction for where to go so return to menu
+                setComponent(<MenuComponent setFunction={updateForm}/>)
+            }
+        } 
+        else {
+            // There was not selection for where to go so return to menu
+            setComponent(<MenuComponent setFunction={updateForm}/>)
+        }   
+    }
 
-      <header>
-        <button type="button" onClick={logout}> Log Out</button>
-        <img id="profile picture" src="images/Black Elephant.png" alt="your profile picture" width="50" height="50"></img>
-      </header>
-      <main>
-        <h1> Scoredisplay Home Page </h1>
-        <p id='welcome'>
-          Welcome back Player 1! What would you like to do?
-        </p>
-        <div className="pure-g" id="layout">
-          <form className="pure-u-1-2 pure-form pure-form-stacked" id="home">
-            
-          </form>
-          <section className="pure-u-1-2">
-            <h2 >Highscores</h2>
-            <ul className="pure-menu" id = 'scoretable'>
-              <li>
-                Submit a Score to see how how it compares to other highscores
-              </li>
-            </ul>
-          </section>
-        </div>
-      </main>
-    </Fragment>
-  );
+    return (
+        <Fragment>
+        <title>Scoredisplay - CS4241 Assignment 2</title>
+        <meta charSet='utf-8' />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossOrigin="anonymous"/>
+        <meta name="description" content="The login page for a simple database that lets you store highscores for games you play."/>
+
+        <header>
+            <button type="button" onClick={logout}> Log Out</button>
+            <img id="profile picture" src="images/Black Elephant.png" alt="your profile picture" width="50" height="50"></img>
+        </header>
+        <main>
+            <h1> Scoredisplay Home Page </h1>
+            <p id='welcome'>
+            Welcome back Player 1! What would you like to do?
+            </p>
+            <div className="pure-g" id="layout">
+            <form className="pure-u-1-2 pure-form pure-form-stacked" id="home">
+                {component}
+            </form>
+            <section className="pure-u-1-2">
+                <h2 >Highscores</h2>
+                <ul className="pure-menu" id = 'scoretable'>
+                <li>
+                    Submit a Score to see how how it compares to other highscores
+                </li>
+                </ul>
+            </section>
+            </div>
+        </main>
+        </Fragment>
+    );
 }
 
 export default Home;
