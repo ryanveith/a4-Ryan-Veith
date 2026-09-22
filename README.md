@@ -1,4 +1,4 @@
-Assignment 4 - Components
+`Assignment 4 - Components
 ===
 
 Due: September 30th, by 11:59 AM.
@@ -24,10 +24,18 @@ Do the following to complete this assignment:
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
 
-## Your Web Application Title
+## Scoredisplay (verison 2)
 
-your hosting link e.g. http://a4-charlieroberts.glitch.me
+your hosting link: https://a4-ryan-veith.onrender.com/
 
 Include a very brief summary of your project here and what you changed / added to assignment #3. Briefly (3–4 sentences) answer the following question: did the new technology improve or hinder the development experience?
 
-Unlike previous assignments, this assignment will be solely graded on whether or not you successfully complete it. Partial credit will be generously given.
+Project is still generally the same. It allows you to type in games and highscores and keeps track of them for you. You may log in/out, create an account, change your nickname, password, and profile picutre as well. The biggest chnage on how things worded was being able to varous constsants there were made up of html over to seperate componsents. Nice since it looks a lot better and was really what I wanted to be able to do in assignment 3, annoying since I had to refator them a bit to do this. There was a few other changes, but all only for transitioning code over to work with vite-express so I did not loose any funcitonality.
+
+
+I would say the new techonlogy improved the development experince. It was so easy to create the project with vite-express. I am also a big fan of being able to put js in with the html so it was nice to have jsx be the default agian. One thing that was somewhat annoying was adding all the '\' self closing tags, I had not done that for input so I had to go and fix that when moving it over.
+
+To run the server naviagate to the Assignment-4-Components-Vite-Express-Project folder
+npm install
+npm run dev
+
