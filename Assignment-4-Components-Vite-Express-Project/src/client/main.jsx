@@ -10,7 +10,6 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 //Something wierd is going on with how it is interpreting this because it load th page if there is paragraph tag in it but not if not
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <p>Required Text</p>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
