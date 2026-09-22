@@ -48,7 +48,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
     console.log("running")
-    await client.connect()
+    client.connect().then(console.log("connected"))
     // route to get all docs for a user
     app.post("/docs", async (req, res) => {
         console.log("/docs request")
@@ -57,7 +57,7 @@ async function run() {
         // So turn it into an array with Object.entries filter for just that one
         // and then its [0] since its only thing in array and [1] because we only care about the value
         const authenticatedUser = Object.entries(req.session).filter(([cookie, value]) => cookie == `login`)[0][1]
-        if (authenticatedUser != null) {
+        if (authenticatedUser != null) {    
             //return collection of just that clients info
             const collection = await client.db("datatest").collection(authenticatedUser)
             if (collection !== null) {
