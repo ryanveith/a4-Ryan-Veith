@@ -44,6 +44,8 @@ function Home() {
                 body: JSON.stringify( {option:'Change Username', newUsername:newUsername1.value} ) 
             })
         }
+        updateForm(true)
+        updateShownData()
     }
 
     const updatePassword = async function() {
@@ -61,6 +63,8 @@ function Home() {
                 body: JSON.stringify( {option:'Change Password', newPassword:password1.value} ) 
             })
         }
+        updateForm(true)
+        updateShownData()
     }
 
     const updateProfilePicture = async function() {
@@ -72,7 +76,8 @@ function Home() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify( {option:'Change Profile Picture', pfp:newpfp.value} ) 
         })
-        console.log("made it here")
+        updateForm(true)
+        updateShownData()
     }
 
     const updateGameScore = async function() {
@@ -138,16 +143,16 @@ function Home() {
         }
         else if (selection != null) {
             if (selection.value === "1") {
-                setComponent(<UsernameComponent setFunction={updateForm}/>)   
+                setComponent(<UsernameComponent setFunction={updateForm} onSubmitFunction={updateUsername}/>)   
             }
             else if (selection.value === "2") {
-                setComponent(<PasswordComponent setFunction={updateForm}/>) 
+                setComponent(<PasswordComponent setFunction={updateForm} onSubmitFunction={updatePassword}/>) 
             }
             else if (selection.value === "3") {
-                setComponent(<ProfilePictureComponent setFunction={updateForm}/>)
+                setComponent(<ProfilePictureComponent setFunction={updateForm} onSubmitFunction={updateProfilePicture}/>)
             }
             else if (selection.value === "4") {
-                setComponent(<GamesComponent setFunction={updateForm}/>)   
+                setComponent(<GamesComponent setFunction={updateForm} onSubmitFunction={updateGameScore}/>)   
             }
             else {
                 // Invalid selction for where to go so return to menu
