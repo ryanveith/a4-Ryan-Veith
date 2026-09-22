@@ -2,24 +2,8 @@ import express from "express";
 import ViteExpress from "vite-express";
 import path from "node:path"
 
-//const app = express();
-
-//app.get("/hello", (req, res) => {
-//  res.send("Hello Vite + React!");
-//});
-
 import "dotenv/config";
-//require("dotenv").config()
-// Express const
-/*
-const express = require( 'express' ),
-    cookie = require( 'cookie-session' ),
-    favicon = require( 'serve-favicon' ),
-    path = require( 'path' ),
-    bodyParser = require('body-parser'),
-    app = express(),
-    user = "" 
-    */
+
 import cookie from "cookie-session"
 import favicon from "serve-favicon"
 import bodyParser from "body-parser"
